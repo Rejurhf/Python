@@ -12,8 +12,8 @@ random.seed()
 lis = []
 lisKop = []
 lis.append(0)
-for i in range(0, 700):
-    lis.append(random.randint(1, 1000))
+for i in range(0, 100):
+    lis.append(random.randint(1, 100))
 print(lis)
 
 start_time = time.time()
@@ -49,13 +49,7 @@ while(len(lis)>1):
             lis[2*j+1] = pom
             j = (2 * j) + 1
             flag = False
-        elif lis[2*j] < lis[2*j+1] and lis[2*j] < lis[j]:
-            pom = lis[j]
-            lis[j] = lis[2*j]
-            lis[2*j] = pom
-            j = 2 * j
-            flag = False
-        elif lis[2*j] == lis[2*j+1] and lis[2*j] < lis[j]:
+        elif lis[2*j] <= lis[2*j+1] and lis[2*j] < lis[j]:
             pom = lis[j]
             lis[j] = lis[2*j]
             lis[2*j] = pom
@@ -69,15 +63,4 @@ czas = time.time() - start_time
 print("--- %s sekund ---" %czas)
         
 print(lisKop)
-"""
-war = True
-for i in range(0, len(lisKop)-1):
-    if lisKop[i] > lisKop[i+1]:
-        print(i)
-        war = False
-        break
-if(war):
-    print("Dobrze")
-else:
-    print("Zle")
-"""
+

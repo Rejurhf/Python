@@ -10,77 +10,41 @@ import random
 random.seed()
 
 lis = []
-for i in range(0, 700):
-    lis.append(random.randint(1, 1000))
+for i in range(0, 100):
+    lis.append(random.randint(1, 100))
 print(lis)
 
 start_time = time.time()
 
-def quickSort(lis, a, z):
-    s = a
-    k = z
-    while(a < z):
-        if lis[a] > lis[s]:
-            while(lis[z] > lis[s]):
-                if z == a:
-                    break
-                z = z - 1
-            if a == z:
-                break
-            elif a < z:
-                pom = lis[a]
-                lis[a] = lis[z]
-                lis[z] = pom
-        if a == z:
-            break
-        else:
-            a = a + 1
-    if(z != k):
-        pom = lis[s]
-        lis[s] = lis[z-1]
-        lis[z-1] = pom
-    else:
-        for i in range(s+1, k+1):
-            if lis[s] != lis[i]:
-                pom = lis[i]
-                lis[i] = lis[s]
-                lis[s] = pom 
-                return s-1
-        return len(lis)
-    return z-1
-
-def sortBomb(lis, d, w):
-    for i in range(d, w):
-        flag = False
-        for j in range(d, w):
-            if lis[j] > lis[j+1]:
-                pom = lis[j]
-                lis[j] = lis[j+1]
-                lis[j+1] = pom
-                flag = True
-        if flag == False:
-            break
+def quickSort(lis, p, r):
+    if p < r:
+        q = dzielenie(lis, p, r)
+        quickSort(lis, p, q)
+        quickSort(lis, q+1, r)
     
-def dzielenie(lis, b, y):
-    t = quickSort(lis, b, y)
-    if t == len(lis):
-        return
-    if (t-b) > 9 and (y-t) > 9:
-        dzielenie(lis, b, t-1)
-        dzielenie(lis, t+1, y)
-    if (t-b) > 9 and (y-t) <= 9:
-        dzielenie(lis, b, t-1)
-        sortBomb(lis, t+1, y)
-    if (t-b) <= 9 and (y-t) > 9:
-        sortBomb(lis, b, t-1)
-        dzielenie(lis, t+1, y)
-    if (t-b) <= 9 and (y-t) <= 9:
-        sortBomb(lis, b, t-1)
-        sortBomb(lis, t+1, y)
+    
+def dzielenie(lis, p, r):
+    x = lis[random.randint(p, r)]
+    i = p-1
+    j = r+1
+    while(True):
+        j -= 1
+        while(lis[j] > x):
+            j -= 1
+        i += 1
+        while(lis[i] < x):
+            i += 1
+        if i < j:
+            pom = lis[i]
+            lis[i] = lis[j]
+            lis[j] = pom
+        else:
+            return j
         
-c = 0
-x = len(lis) - 1
-dzielenie(lis, c, x)
+        
+start = 0
+end = len(lis) - 1
+quickSort(lis, start, end)
 
 czas = time.time() - start_time
     
@@ -88,15 +52,5 @@ print("--- %s sekund ---" %czas)
 
 print(lis)
 
-war = True
-for i in range(0, len(lis)-1):
-    if lis[i] > lis[i+1]:
-        print(i)
-        war = False
-        break
-if(war):
-    print("Dobrze")
-else:
-    print("Zle")
 
   
